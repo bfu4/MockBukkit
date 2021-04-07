@@ -22,6 +22,7 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import net.minecraft.server.v1_16_R3.MinecraftServer;
 import org.apache.commons.lang.Validate;
 import org.bukkit.BanEntry;
 import org.bukkit.BanList;
@@ -962,7 +963,6 @@ public class ServerMock extends Server.Spigot implements Server
 	@Override
 	public World createWorld(WorldCreator creator)
 	{
-		// TODO Auto-generated method stub
 		throw new UnimplementedOperationException();
 	}
 
@@ -1507,7 +1507,7 @@ public class ServerMock extends Server.Spigot implements Server
 	{
 		return this;
 	}
-	
+
 	// Methods from Server.Spigot:
 
 	@NotNull

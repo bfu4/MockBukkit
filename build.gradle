@@ -18,7 +18,9 @@ repositories {
     maven {
         url 'https://repo.md-5.net/content/groups/public/'
     }
+
 }
+
 
 dependencies {
     api "org.spigotmc:spigot-api:${gradle.ext.apiVersionFull}"
@@ -63,7 +65,7 @@ publishing {
         mockBukkit(MavenPublication) {
             artifactId = "MockBukkit-v${gradle.ext.apiVersion}"
             from components.java
-            
+
             artifact sourcesJar
             artifact javadocJar
             pom {

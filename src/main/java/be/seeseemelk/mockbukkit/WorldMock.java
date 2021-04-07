@@ -13,6 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import be.seeseemelk.mockbukkit.world.MockWorldGenerator;
 import org.apache.commons.lang.Validate;
 import org.bukkit.BlockChangeDelegate;
 import org.bukkit.Bukkit;
@@ -76,7 +77,7 @@ public class WorldMock implements World
 {
 	private static final int MIN_WORLD_HEIGHT = 0;
 	private static final int MAX_WORLD_HEIGHT = 256;
-	
+
 	private final Map<Coordinate, BlockMock> blocks = new HashMap<>();
 	private final Map<GameRule<?>, Object> gameRules = new HashMap<>();
 	private final MetadataTable metadataTable = new MetadataTable();
@@ -84,6 +85,8 @@ public class WorldMock implements World
 	private Environment environment = Environment.NORMAL;
 	private ServerMock server;
 	private Material defaultBlock;
+	private MockWorldGenerator generator;
+
 	private int height;
 	private int grassHeight;
 	private String name = "World";
@@ -270,6 +273,41 @@ public class WorldMock implements World
 	{
 		ChunkMock chunk = new ChunkMock(this, x, z);
 		return chunk;
+	}
+
+	/**
+	 * Get the default block type
+	 *
+	 * @return default block type
+	 */
+	public Material getDefaultBlock() {
+		return this.defaultBlock;
+	}
+
+	/**
+	 * Get the grass height
+	 */
+	public int getGrassHeight() {
+		return this.grassHeight;
+	}
+
+	/**
+	 * Get the height
+	 *
+	 * @return height
+	 */
+	public int getHeight() {
+		return this.height;
+	}
+
+	/**
+	 * Create a world generator
+	 */
+	public MockWorldGenerator createGenerator() {
+		if (generator == null) {
+			generator = new MockWorldGenerator(this);
+		}
+		return generator;
 	}
 
 	@Override
@@ -466,7 +504,7 @@ public class WorldMock implements World
 	{
 		return dropItem(loc, item, e -> {});
 	}
-	
+
 	@Override
 	public ItemEntityMock dropItemNaturally(@NotNull Location location, @NotNull ItemStack item, @Nullable Consumer<Item> function)
 	{
